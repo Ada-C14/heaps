@@ -53,8 +53,8 @@ class MinHeap
   end
 
   # This method returns true if the heap is empty
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(1) - just check if first element exists
+  # Space complexity: O(1) - no new variables created, only checking existing variables or lack thereof
   def empty?
     return @store[0].nil?
   end
@@ -64,8 +64,12 @@ class MinHeap
   # This helper method takes an index and
   #  moves it up the heap, if it is less than it's parent node.
   #  It could be **very** helpful for the add method.
-  # Time complexity: O(log n) worst case 
-  # Space complexity: O(1) - other than creating holding variables
+  # Time complexity: O(log n) worst/avg case as heap_up travels half the distance
+  # to the first element every iteration
+
+  # Space complexity: O(log n) worst/avg case other than creating holding variables,
+  # recursive call for stack for a node that needs to bubble all the way every time half
+  # of distance traveled to first element
   def heap_up(index)
     # base case: index is 0 
     if index > 0 
@@ -94,6 +98,12 @@ class MinHeap
   # This helper method takes an index and 
   #  moves it down the heap if it's larger
   #  than it's smallest child node
+  # Time complexity: O(log n) worst/avg case as heap_down travels double the distance
+  # from the current index for every recursive call
+  
+  # Space complexity: O(log n) worst/avg case other than creating holding variables,
+  # recursive call for stack for a node that needs to bubble all the way every time it 
+  # doubles distance traveled across @store
   def heap_down(index)
     # base case 1, can't reach any more child nodes
     # ^ meaning heap node has reached deepest depth of heap
