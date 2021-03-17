@@ -14,8 +14,12 @@ class MinHeap
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n) - heap_up is an O(log n) operation called once and based on a full binary tree
+  # double in children at ever deeper level
+
+  # Space Complexity: O(log n) - Only creating one HeapNode to add to heap, but 
+  # heap_up is at worst case an O(log n) operation that recursively adds to the stack
+  # O(log n) times.
   def add(key, value = key)
     # always add element to back to bubble up
     @store << HeapNode.new(key, value) 
@@ -25,8 +29,10 @@ class MinHeap
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n) - heap_down is an O(log n) operation called once and based on a full binary tree
+  # double in children at ever deeper level
+  # Space Complexity: O(log n) - heap_down is at worst case an O(log n) operation that recursively adds to the stack
+  # O(log n) times.
   def remove()
     return nil if empty? 
     swap(0, @store.length - 1) # swap last element with root, O(n) to calc length
