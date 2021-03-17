@@ -17,7 +17,10 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    # always add element to back to bubble up
+    @store << HeapNode.new(key, value) 
+
+    heap_up(@store.length -1)
   end
 
   # This method removes and returns an element from the heap
@@ -25,7 +28,12 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    swap(0, @store.length-1) # swap last element with root
+    old_top = @store.pop() # remove former root
+
+    heap_down(0) # bubble down new top element so lowest element in 0 index
+
+    return old_top.value # return old min's value
   end
 
 
@@ -47,7 +55,7 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return @store[0].nil?
   end
 
   private
@@ -65,10 +73,11 @@ class MinHeap
   #  moves it up the heap if it's smaller
   #  than it's parent node.
   def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+    
   end
 
   # If you want a swap method... you're welcome
+  # THANK YOU 
   def swap(index_1, index_2)
     temp = @store[index_1]
     @store[index_1] = @store[index_2]
