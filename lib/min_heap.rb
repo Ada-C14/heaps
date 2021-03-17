@@ -20,7 +20,7 @@ class MinHeap
     # always add element to back to bubble up
     @store << HeapNode.new(key, value) 
 
-    heap_up(@store.length -1)
+    heap_up((@store.length - 1))
   end
 
   # This method removes and returns an element from the heap
@@ -28,8 +28,8 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    swap(0, @store.length-1) # swap last element with root
-    old_top = @store.pop() # remove former root
+    swap(0, @store.length - 1) # swap last element with root, O(n) to calc length
+    old_top = @store.pop() # remove former root with O(1) time
 
     heap_down(0) # bubble down new top element so lowest element in 0 index
 
@@ -66,12 +66,33 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def heap_up(index)
-    
+    # base case: index is 0 
+    if index > 0 
+      # we need to subtract 1 from index to account for 0-indexing
+      parent_i = (index - 1)/2
+
+      # make sure its sibling isn't smaller, else swap them
+      # i think technically you can just change which index
+      # index is compared to, but the test got mad at me when i tried
+      # that and i'm not sure how to avoid that, so i just swapped them 
+      # so i wouldn't have to change parent_i
+      if @store[parent_i + 1].key < @store[parent_i].key 
+        swap(parent_i + 1, parent_i) 
+      end
+
+      # check if swap needs to happen
+      if  @store[index].key < @store[parent_i].key
+        swap(index, parent_i) 
+        heap_up(parent_i) # recursive call to keep bubbling up 
+      end
+
+      # don't need to recursive call if reaches here; at correct position
+    end
   end
 
   # This helper method takes an index and 
-  #  moves it up the heap if it's smaller
-  #  than it's parent node.
+  #  moves it down the heap if it's larger
+  #  than it's smallest child node
   def heap_down(index)
     
   end
