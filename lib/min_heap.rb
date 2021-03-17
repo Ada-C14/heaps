@@ -28,10 +28,11 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
+    return nil if empty? 
     swap(0, @store.length - 1) # swap last element with root, O(n) to calc length
     old_top = @store.pop() # remove former root with O(1) time
 
-    heap_down(0) # bubble down new top element so lowest element in 0 index
+    heap_down(0) unless empty?# bubble down new top element so lowest element in 0 index
 
     return old_top.value # return old min's value
   end
@@ -63,8 +64,8 @@ class MinHeap
   # This helper method takes an index and
   #  moves it up the heap, if it is less than it's parent node.
   #  It could be **very** helpful for the add method.
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(log n) worst case 
+  # Space complexity: O(1) - other than creating holding variables
   def heap_up(index)
     # base case: index is 0 
     if index > 0 
@@ -94,7 +95,22 @@ class MinHeap
   #  moves it down the heap if it's larger
   #  than it's smallest child node
   def heap_down(index)
+    # base case 1, can't reach any more child nodes
+    # ^ meaning heap node has reached deepest depth of heap
+    if 2 * (index + 1) - 1 < @store.length - 1
+      child_i = 2 * (index + 1) - 1 # (index + 1) to account for zero index
     
+      swap(child_i, child_i + 1) if @store[child_i].key > @store[(child_i + 1)].key
+
+      if @store[child_i].key < @store[index].key
+        swap(index, child_i)
+        heap_down(child_i) 
+      end
+    # base case 2, index is not last element
+    elsif index < @store.length - 1
+      swap(index, index + 1) if @store[index].key > @store[index + 1].key
+    end
+    # note that add will reorder the heap through swap
   end
 
   # If you want a swap method... you're welcome

@@ -59,7 +59,7 @@ describe "Heap" do
    heap.add(0, "Donuts")
    heap.add(16, "Cookies")
    heap.add(57, "Cake")
-
+   heap.add(100, "Krumkake")
    # Act
    removed = heap.remove
 
@@ -77,5 +77,30 @@ describe "Heap" do
 
   # Another assert
   expect(removed).must_equal "Pasta"
+  
+  removed = heap.remove
+
+  # added more asserts to remove all nodes to check last elements
+  # are removed properly
+
+  # Another assert
+  expect(removed).must_equal "Soup"
+
+  removed = heap.remove
+
+  # Another assert
+  expect(removed).must_equal "Cookies"
+
+  removed = heap.remove
+
+  # Another assert
+  expect(removed).must_equal "Cake"
+
+  removed = heap.remove
+
+  # Another assert
+  expect(removed).must_equal "Krumkake"
+
+  expect(heap).must_be_empty
   end
 end
