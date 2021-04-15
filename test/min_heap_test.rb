@@ -66,16 +66,10 @@ describe "Heap" do
     # Assert
     expect(removed).must_equal "Donuts"
 
-    # Another Act
     removed = heap.remove
-
-    # Another assert
     expect(removed).must_equal "Pizza"
 
-    # Another Act
     removed = heap.remove
-
-    # Another assert
     expect(removed).must_equal "Pasta"
   end
 end
