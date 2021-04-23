@@ -29,11 +29,10 @@ class MinHeap
   def remove()
     return nil if @store.empty?
 
-    p @store
-    swap(0, @store.length - 1)
+    last_index = @store.length - 1
+    swap(0, last_index)
     result = @store.pop
 
-    p @store
     # start heap_down with the root(index 0)
     heap_down(0) unless @store.empty?
     result.value
@@ -102,7 +101,7 @@ class MinHeap
     left = index * 2 + 1
     right = index * 2 + 2
     # if left child index is less or equal to the length of arr, it's a leaf node
-    if @store.length <= left # && @store.length - 1 > right_child
+    if @store.length <= index * 2 + 1 # && @store.length - 1 > right_child
       # node doesn't have any children
       return @store
     else # recursive case, we're not at a leaf node, heap_down if we're able to 
