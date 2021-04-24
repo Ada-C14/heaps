@@ -51,7 +51,7 @@ describe "Heap" do
     expect(output).must_equal "[Donuts, Pizza, Pasta, Soup, Cookies, Cake]"
   end
 
-  xit "can remove nodes in the proper order" do
+  it "can remove nodes in the proper order" do
    # Arrange
    heap.add(3, "Pasta")
    heap.add(6, "Soup")

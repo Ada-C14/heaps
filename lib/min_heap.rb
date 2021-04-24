@@ -15,7 +15,7 @@ class MinHeap
 
   # This method adds a HeapNode instance to the heap
   # Time Complexity: O(logn)
-  # Space Complexity: O(logn)
+  # Space Complexity: ?
   def add(key, value = key)
     node = HeapNode.new(key, value)
     @store.push(node)
@@ -27,7 +27,11 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    return if @store.empty?
+    swap(0, -1)
+    removed = @store.pop
+    heap_down(0) unless @store.empty?
+    return removed.value
   end
 
 
@@ -46,10 +50,10 @@ class MinHeap
   end
 
   # This method returns true if the heap is empty
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(1)
+  # Space complexity: O(1)
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return @store[0].nil?
   end
 
   private
@@ -65,6 +69,8 @@ class MinHeap
     parent = (index - 1)/2
     if @store[parent].key > @store[index].key
       swap(parent, index)
+    else
+      return
     end
 
     return heap_up(parent)
@@ -74,7 +80,28 @@ class MinHeap
   #  moves it up the heap if it's smaller
   #  than it's parent node.
   def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+    left_child = (index * 2) + 1
+    right_child = (index * 2) + 2
+
+    # check for at least left
+    if @store[left_child] && !@store[right_child]
+      if @store[index].key > @store[left_child].key
+        swap(index, left_child)
+      end
+    end
+    
+    # checking for both
+    return unless @store[right_child] && @store[left_child]
+
+    if @store[index].key > @store[left_child].key || @store[index].key > @store[right_child].key
+      smallest = @store[right_child].key < @store[left_child].key ? right_child : left_child
+      swap(index, smallest)
+    else
+      return
+    end
+
+    return heap_down(index)
+
   end
 
   # If you want a swap method... you're welcome
@@ -84,3 +111,12 @@ class MinHeap
     @store[index_2] = temp
   end
 end
+
+# heap = MinHeap.new
+# p heap.add(3, "Pasta")
+# p heap.add(6, "Soup")
+# p heap.add(1, "Pizza")
+# heap.add(0, "Donuts")
+# heap.add(16, "Cookies")
+# heap.add(57, "Cake")
+# heap.remove
