@@ -1,6 +1,7 @@
 require_relative "test_helper"
+require_relative "../lib/heap_sort"
 
-xdescribe "heapsort" do
+describe "heapsort" do
   it "sorts an empty array" do
     # Arrange 
     list = []
