@@ -97,28 +97,20 @@ class MinHeap
     # swap smaller to two children if it's a min heap
     # repeat until we stop making swap or reach a leaf node
 
-    # recursive case is when there is at least one child
-    left = index * 2 + 1
-    right = index * 2 + 2
-    # if left child index is less or equal to the length of arr, it's a leaf node
-    if @store.length <= index * 2 + 1 # && @store.length - 1 > right_child
-      # node doesn't have any children
-      return @store
-    else # recursive case, we're not at a leaf node, heap_down if we're able to 
-      # try left, swap if we're able
-      # if we can't, try right,swap if we're able 
-      # if we can't swap, return 
-      if @store[index].key > @store[left].key
-        swap(index, left)
-        # not exactly sure why we're passing down the index again?
-        heap_down(index)
-      elsif @store[index].key > @store[right].key
-        swap(index, right)
-        heap_down(index)
-      else
-        return @store
-      end
-    end
+    child_i = index * 2
+    # base case, return if we reach bottom of the tree
+    return if child_i > @store.length - 1
+    # make sure we get the smallest child
+    not_the_last_element = child_i < @store.length - 1 
+    left_child = @store[child_i]
+    right_child = @store[child_i + 1]
+    child_i += 1 if not_the_last_element && right_child.key < left_child.key
+
+    # another base case, return if parent is smaller than child
+    return if @store[index].key <= @store[child_i].key
+
+    swap(index, child_i)
+    heap_down(child_i)
   end
 
   # If you want a swap method... you're welcome
