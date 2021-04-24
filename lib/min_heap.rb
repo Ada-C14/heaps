@@ -14,10 +14,12 @@ class MinHeap
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(logn)
+  # Space Complexity: O(logn)
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    node = HeapNode.new(key, value)
+    @store.push(node)
+    return heap_up(@store.length - 1)
   end
 
   # This method removes and returns an element from the heap
@@ -55,10 +57,17 @@ class MinHeap
   # This helper method takes an index and
   #  moves it up the heap, if it is less than it's parent node.
   #  It could be **very** helpful for the add method.
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(logn)
+  # Space complexity: O(logn)
   def heap_up(index)
-    
+    return if index == 0
+
+    parent = (index - 1)/2
+    if @store[parent].key > @store[index].key
+      swap(parent, index)
+    end
+
+    return heap_up(parent)
   end
 
   # This helper method takes an index and 
