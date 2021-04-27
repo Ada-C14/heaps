@@ -14,10 +14,11 @@ class MinHeap
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n), where n is the number of items
+  # Space Complexity: O(n) 
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    @store << HeapNode.new(key, value)
+    heap_up(@store.length - 1)
   end
 
   # This method removes and returns an element from the heap
@@ -25,7 +26,11 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    return nil if @store.empty?
+    swap(0, -1)
+    last = @store.pop
+    heap_down(0) unless @store.empty?
+    return last.value
   end
 
 
@@ -47,7 +52,11 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    if @store.length == 0
+      return true
+    else
+      return false
+    end
   end
 
   private
@@ -58,14 +67,27 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def heap_up(index)
-    
+    parent_i = (index - 1) / 2
+    return if index == 0 || @store[parent_i].key < @store[index].key
+
+    swap(parent_i, index)
+    heap_up(parent_i)
   end
 
   # This helper method takes an index and 
   #  moves it up the heap if it's smaller
   #  than it's parent node.
   def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+    left_child = 2 * index + 1
+    right_child = 2 * index + 2
+    return if @store[left_child].nil? || @store[right_child].nil?
+    if @store[left_child].key < @store[index].key
+      swap(left_child, index)
+    end
+
+    if @store[right_child].key < @store[index].key
+      swap(right_child, index)
+    end
   end
 
   # If you want a swap method... you're welcome
