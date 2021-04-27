@@ -11,14 +11,31 @@ class MinHeap
 
   def initialize
     @store = []
+    height = 0
   end
 
   # This method adds a HeapNode instance to the heap
   # Time Complexity: ?
   # Space Complexity: ?
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    @store << HeapNode.new(key, value)
+
+    parent_index = @store.length/2 - 1                          #parent = (child_element - 1)/2
+    is_left_child = @store[2 * parent_index + 1] == @store[-1]  #left_child = 2 * parent_index + 1
+                                                                #right_child = 2 * parent_index + 2
+    if !is_left_child && @store[parent_index].key > key
+      @store[parent_index], @store[-1] = @store[-1], @store[parent_index]
+    end
+    return @store
   end
+  # def add(key, value = key)
+  #   @store << HeapNode.new(key, value)
+  #   puts "before: #{@store.map{|pair| pair.key}}"
+  #   if @store[-2] && @store[-2].key[0] > key
+  #     @store[-2], @store[-1] = @store[-1], @store[-2]
+  #   end
+  #   puts "after: #{@store.map{|pair| pair.key}}"
+  # end
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
