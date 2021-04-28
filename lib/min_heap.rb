@@ -17,7 +17,9 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    @store << HeapNode.new(key, value)
+
+    heap_up(@store.length - 1)
   end
 
   # This method removes and returns an element from the heap
@@ -25,9 +27,17 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
-  end
+    if @store.empty?
+      return nil
+    end
+  
+    swap(0, @store.length - 1)
+    result = @store.pop
+  
+    heap_down(0) unless @store.empty?
 
+    return result.value
+  end
 
   # Used for Testing
   def to_s
@@ -35,10 +45,10 @@ class MinHeap
 
     output = "["
     (@store.length - 1).times do |index|
-      output += @store[index].value + ", "
+      output += @store[index].value.to_s + ", "
     end
 
-    output += @store.last.value + "]"
+    output += @store.last.value.to_s + "]"
       
     return output
   end
@@ -47,7 +57,7 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    @store.length == 0 ? true : false
   end
 
   private
@@ -58,14 +68,34 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def heap_up(index)
-    
+    parent = ((index - 1) / 2)
+
+    if index > 0 && @store[index].key < @store[parent].key
+      swap(index, parent)
+      heap_up(parent)
+    end
   end
 
   # This helper method takes an index and 
-  #  moves it up the heap if it's smaller
+  #  moves it down the heap if it's smaller
   #  than it's parent node.
   def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+    left_child = 2 * index + 1
+    right_child = 2 * index + 2
+    smaller_child = index
+
+    if left_child < @store.length && @store[left_child].key < @store[smaller_child].key
+      smaller_child = left_child
+    end
+
+    if right_child < @store.length && @store[right_child].key < @store[smaller_child].key
+      smaller_child = right_child
+    end
+
+    if smaller_child != index
+      swap(index, smaller_child)
+      heap_down(smaller_child)
+    end
   end
 
   # If you want a swap method... you're welcome
