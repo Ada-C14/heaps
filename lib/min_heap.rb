@@ -83,12 +83,12 @@ class MinHeap
     if left_child_index > last_index
       return
     elsif right_child_index <= last_index && @store[right_child_index].key < @store[left_child_index].key
-      if @store[index].key > @store[right_child_index].key
+      if @store[right_child_index].key < @store[index].key
         swap(index, right_child_index)
         heap_down(right_child_index)
       end
     else
-      if @store[index].key > @store[left_child_index].key
+      if @store[left_child_index].key < @store[index].key
         swap(index, left_child_index)
         heap_down(left_child_index)
       end
