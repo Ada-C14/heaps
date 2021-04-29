@@ -23,7 +23,7 @@ class MinHeap
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
+  # Time Complexity: O(log n)
   # Space Complexity: O(1)
   def remove()
     return nil if @store.empty?
