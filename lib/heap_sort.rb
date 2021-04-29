@@ -1,8 +1,8 @@
 
 
 # This method uses a heap to sort an array.
-# Time Complexity:  ?
-# Space Complexity: ?
+# Time Complexity:  O(nlog(n))
+# Space Complexity: O(n)
 def heapsort(list)
   # raise NotImplementedError, "Method not implemented yet..."
 
