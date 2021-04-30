@@ -74,7 +74,7 @@ class MinHeap
   end
 
   # This helper method takes an index and 
-  #  moves it down the heap if it's greater
+  #  moves it up the heap if it's smaller
   #  than it's parent node.
   def heap_down(index)
     left_child_index = 2 * index + 1
