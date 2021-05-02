@@ -14,20 +14,25 @@ class MinHeap
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n) where n is the number of nodes in the heap
+  # Space Complexity: O(2) == O(1)
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    @store << HeapNode.new(key, value)
+    heap_up(@store.length - 1)
+    return @store
   end
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n) where n is the number of nodes in the heap
+  # Space Complexity: O(2) == O(1)
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    return nil if empty?
+    @store[0], @store[-1] = @store[-1], @store[0]
+    removed_node = @store.pop
+    heap_down(0)
+    return removed_node.value
   end
-
 
   # Used for Testing
   def to_s
@@ -39,33 +44,52 @@ class MinHeap
     end
 
     output += @store.last.value + "]"
-      
+
     return output
   end
 
   # This method returns true if the heap is empty
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(1) ? I think the length of arrays is somehow cached or something in Ruby? If not, then O(n) where n is the number of elements in the array
+  # Space complexity: O(1)
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return @store.length == 0
   end
 
   private
 
   # This helper method takes an index and
-  #  moves it up the heap, if it is less than it's parent node.
+  #  moves it up the heap, if it is less than its parent node.
   #  It could be **very** helpful for the add method.
-  # Time complexity: ?
-  # Space complexity: ?
-  def heap_up(index)
-    
+  # Time complexity: O(log n) where n is the number of nodes in the heap
+  # Space complexity: O(1)
+  def heap_up(current)
+    parent = (current - 1) / 2
+    while @store[current].key < @store[parent].key do
+      @store[parent], @store[current] = @store[current], @store[parent]
+      current = parent
+      parent = current / 2
+    end
   end
 
-  # This helper method takes an index and 
-  #  moves it up the heap if it's smaller
-  #  than it's parent node.
-  def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+  # This helper method takes an index and
+  #  moves it down the heap if it's larger
+  #  than its child nodes.
+  def heap_down(current)
+    current = 0
+    left_child = current * 2 + 1
+    right_child = current * 2 + 2
+    child = @store[left_child].key < @store[right_child].key ? left_child : right_child
+
+    while @store[current].key > @store[child].key do
+      @store[child], @store[current] = @store[current], @store[child]
+
+      current = child
+      left_child = current * 2 + 1
+      right_child = current * 2 + 2
+      if @store[left_child] && @store[right_child]
+        child = @store[left_child].key < @store[right_child].key ? left_child : right_child
+      end
+    end
   end
 
   # If you want a swap method... you're welcome
