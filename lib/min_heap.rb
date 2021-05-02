@@ -11,40 +11,54 @@ class MinHeap
 
   def initialize
     @store = []
-    height = 0
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n) where n is the number of nodes in the tree
+  # Space Complexity: O(1)
+  # parent = (child_element - 1)/2
+  # left_child = 2 * parent + 1
+  # right_child = 2 * parent + 2
   def add(key, value = key)
     @store << HeapNode.new(key, value)
 
-    parent_index = @store.length/2 - 1                          #parent = (child_element - 1)/2
-    is_left_child = @store[2 * parent_index + 1] == @store[-1]  #left_child = 2 * parent_index + 1
-                                                                #right_child = 2 * parent_index + 2
-    if !is_left_child && @store[parent_index].key > key
-      @store[parent_index], @store[-1] = @store[-1], @store[parent_index]
+    current = @store.length - 1
+    parent = (current - 1) / 2
+    while @store[current].key < @store[parent].key do
+      @store[parent], @store[current] = @store[current], @store[parent]
+      current = parent
+      parent = current / 2
     end
+
     return @store
   end
-  # def add(key, value = key)
-  #   @store << HeapNode.new(key, value)
-  #   puts "before: #{@store.map{|pair| pair.key}}"
-  #   if @store[-2] && @store[-2].key[0] > key
-  #     @store[-2], @store[-1] = @store[-1], @store[-2]
-  #   end
-  #   puts "after: #{@store.map{|pair| pair.key}}"
-  # end
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(log n) where n is the number of nodes in the tree
+  # Space Complexity: O(1)
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
-  end
+    @store[0], @store[-1] = @store[-1], @store[0]
+    removed_node = @store.pop
 
+    current = 0
+    left_child = current * 2 + 1
+    right_child = current * 2 + 2
+    child = @store[left_child].key < @store[right_child].key ? left_child : right_child
+
+    while @store[current].key > @store[child].key do
+      @store[child], @store[current] = @store[current], @store[child]
+
+      current = child
+      left_child = current * 2 + 1
+      right_child = current * 2 + 2
+      if @store[left_child] && @store[right_child]
+        child = @store[left_child].key < @store[right_child].key ? left_child : right_child
+      end
+    end
+
+    return removed_node.value
+  end
 
   # Used for Testing
   def to_s
@@ -56,7 +70,7 @@ class MinHeap
     end
 
     output += @store.last.value + "]"
-      
+
     return output
   end
 
@@ -75,10 +89,10 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def heap_up(index)
-    
+
   end
 
-  # This helper method takes an index and 
+  # This helper method takes an index and
   #  moves it up the heap if it's smaller
   #  than it's parent node.
   def heap_down(index)
