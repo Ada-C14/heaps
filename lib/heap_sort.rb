@@ -6,42 +6,33 @@ end
 
 # for max heap
 # this is helpful https://www.youtube.com/watch?v=2DmK_H7IdTo
-def heap_down(start_index, end_index, list)
-  left_child = (start_index * 2) + 1
-  right_child = (start_index * 2) + 2
+# this is also helpful: https://www.programiz.com/dsa/heap-sort
+# time: o(logn)
+# space: o(logn) - because of call stack?
+def heap_down(list, i, length)
+  left_child = (i * 2) + 1
+  right_child = (i * 2) + 2
+  max = i
 
-  p start_index
-  p left_child
-  p right_child
+  if left_child < length && list[left_child] > list[max]
+    max = left_child
+  end
 
-  return if left_child > end_index || right_child > end_index
+  if right_child < length && list[right_child] > list[max]
+    max = right_child
+  end
 
-  # check for at least left
-  if list[left_child] && !list[right_child]
-    if list[start_index] < list[left_child]
-      swap(start_index, left_child, list)
-    end
+  if i != max
+    swap(i, max, list)
+    heap_down(list, max, length)
   end
   
-  # checking for both
-  return unless list[right_child] && list[left_child]
-
-  if list[start_index] < list[left_child] || list[start_index] < list[right_child]
-    largest = list[right_child] > list[left_child] ? right_child : left_child
-    swap(start_index, largest, list)
-  else
-    return
-  end
-
-  p "list in recursion: #{list}"
-
-  return heap_down(start_index + 1, end_index, list)
-
 end
 
+
 # This method uses a heap to sort an array.
-# Time Complexity:  ?
-# Space Complexity: ?
+# Time Complexity: o(nlogn)
+# Space Complexity: o(logn) - bc of call stack?
 def heapsort(list)
   # heap = MinHeap.new()
 
@@ -55,26 +46,22 @@ def heapsort(list)
 
   # return list
 
-  # turn array in max heap - bunch of heap downs
-  # swap 1st and last
-  # turn array[0..last element -  1] into max heap
-  # swap 1st and last
-  # continue 
+  end_index = list.length - 1
+  while end_index >= 0                                              # time: o(n)
+    # heapify - build a max heap
+    # parent nodes start at length / 2
+    parent_index = end_index/2
+    while parent_index >= 0
+      heap_down(list, parent_index, end_index)                      # time: o(logn)
+      parent_index -= 1 
+    end
 
-  i = 0
-  j = list.length - 1
-  while i < list.length - 1
-    heap_down(0, j, list)
-    p "heap down result: #{list}"
-    swap(0, j, list)
-    j -= 1
-    i += 1
-    # while j < length - i - 1
-    # end
-    p list
+    # move largest element to the end
+    swap(0, end_index, list)
+
+    # don't include sorted portion in further heap down
+    end_index -= 1
   end
 
   return list
 end
-
-p heapsort([-50, 3, 5, 16, 27])

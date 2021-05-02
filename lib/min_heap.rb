@@ -111,17 +111,3 @@ class MinHeap
     @store[index_2] = temp
   end
 end
-
-# heap = MinHeap.new
-# heap.add(3, 3)
-# heap.add(6, 6)
-# heap.add(1, 1)
-# heap.add(0, 0)
-# heap.add(16,16)
-# heap.add(57, 57)
-# p heap
-# heap.remove
-# p heap
-# heap.remove
-# heap.remove
-# p heap
