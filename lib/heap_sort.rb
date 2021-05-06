@@ -1,7 +1,7 @@
 
 # This method uses a heap to sort an array.
-# Time Complexity:  ?
-# Space Complexity: ?
+# Time Complexity:  O(nlogn)
+# Space Complexity: O(n)
 def heapsort(list)
   return list if list.empty?
   heap = MinHeap.new
@@ -9,5 +9,10 @@ def heapsort(list)
   list.each do |n|
     heap.add(n)
   end
-  return heap.store.map {|node| node.key}
+
+  list.length.times do |i|
+    list[i] = heap.remove
+  end
+
+  return list
 end

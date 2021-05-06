@@ -82,7 +82,6 @@ class MinHeap
       while @store[index].key > @store[index * 2 + 1].key
         swap(index, index * 2 + 1)
         swap(index, index * 2 + 2) if @store[index * 2 + 2] != nil && @store[index].key > @store[index * 2 + 2].key
-        swap(index * 2 + 1, index * 2 + 2) if @store[index * 2 + 2] != nil && @store[index * 2 + 1].key > @store[index * 2 + 2].key
         index = index * 2 + 1
         return if @store[index * 2 + 1].nil?
       end
