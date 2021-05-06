@@ -2,7 +2,7 @@
 
 # # This method uses a heap to sort an array.
 #  # Time Complexity: O(n log n) to add elements to a heap and swap them in order at each level
-#  # Space Complexity: O(log n) for recursive heap_up in .add
+#  # Space Complexity: O(n) since you're adding all the elements to a heap here
 def heapsort(list)
 	return [] if list.empty?
 
