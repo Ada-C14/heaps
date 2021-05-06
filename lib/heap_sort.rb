@@ -2,7 +2,7 @@
 
 # # This method uses a heap to sort an array.
 #  # Time Complexity: O(n log n) to add elements to a heap and swap them in order at each level
-#  # Space Complexity: O(log n) for recursive heap_up in .add
+#  # Space Complexity: O(n) since you're adding all the elements to a heap here
 def heapsort(list)
 	return [] if list.empty?
 
@@ -58,10 +58,11 @@ end
 
 
 def build_min_heap(list)
-	# range of internal nodes is 0 to (n/2 - 1) and range of leaves is (n/2) to (n - 1)
+	# Range of internal nodes is 0 to (n/2 - 1) and range of leaves is (n/2) to (n - 1)
 	i = list.length / 2 - 1
 
 	while i >= 0 do
+		# Starting from half of array (non-leaf nodes), heapify (make a max heap, moving up)
 		max_heapify(list, list.length, i)
 		i -= 1
 	end
@@ -82,17 +83,17 @@ def max_heapify(list, size, root)
 		left_child_exists = (left_child_index <= (size - 1))
 		right_child_exists = (right_child_index <= (size - 1))
 
-		# If left child is larger than root
+		# If left child is larger than root, make left child the largest
 		if left_child_exists && list[left_child_index] > list[largest]
 			largest = left_child_index
 		end
 
-		# If right child is larger than largest so far
+		# If right child is larger than largest so far, make right child the largest
 		if right_child_exists && list[right_child_index] > list[largest]
 			largest = right_child_index
 		end
 
-		# If largest is not root, swap
+		# If largest now is not root, swap
 		if largest != root
 			swap(list, largest, root)
 
