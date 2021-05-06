@@ -17,7 +17,10 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+
+    @store << HeapNode.new(key, value)
+
+    heap_up(@store.length - 1)
   end
 
   # This method removes and returns an element from the heap
@@ -25,7 +28,14 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    return nil if @store.empty?
+
+    swap(0, @store.length - 1)
+    removed = @store.pop
+
+    heap_down(0) unless @store.empty?
+
+    return removed.value
   end
 
 
@@ -34,6 +44,7 @@ class MinHeap
     return "[]" if @store.empty?
 
     output = "["
+
     (@store.length - 1).times do |index|
       output += @store[index].value + ", "
     end
@@ -47,7 +58,7 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return @store.length == 0 ? true : false
   end
 
   private
@@ -58,7 +69,13 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def heap_up(index)
-    
+    return if index == 0
+
+    parent = (index - 1) / 2
+    if @store[index].key < @store[parent].key
+      swap(index, parent)
+      heap_up(parent)
+    end
   end
 
   # This helper method takes an index and 
