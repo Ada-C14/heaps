@@ -14,15 +14,18 @@ class MinHeap
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(m+1), where m is height  -  O(1) for adding, O(m) for heap up
+  # Space Complexity: O(1) -  no new data structures made, but O(m) for heap up call stack (is it the number of calls in the calls stack or number of structures made?)
   def add(key, value = key)
-    # raise NotImplementedError, "Method not implemented yet..."
     @store << HeapNode.new(key, value)
     
-      
+    # @store.each do |node|
+    #   puts node.key
+    # end
+
+    print @store[0].key
     if @store.length > 1
-      heap_sort(@store)
+      heap_up(@store.length - 1)
     end
 
   end
@@ -62,11 +65,22 @@ class MinHeap
   # This helper method takes an index and
   #  moves it up the heap, if it is less than it's parent node.
   #  It could be **very** helpful for the add method.
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(m) where m is height
+  # Space complexity: O(1), no persistent data structure is made beyond 1 temporary reassigned variable
   def heap_up(index)
+    return if index == 0
+
+    if @store[index].key < @store[((index - (index % 3)) / 2)].key 
+      temp = @store[index] 
+      @store[index] = @store[((index - (index % 3)) / 2)]
+      @store[((index - (index % 3)) / 2)] = temp
+    end
+
+    heap_up(((index - (index % 3)) / 2))
     
   end
+
+
 
   # This helper method takes an index and 
   #  moves it up the heap if it's smaller
