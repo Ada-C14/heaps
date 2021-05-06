@@ -18,13 +18,9 @@ class MinHeap
   # Time Complexity: O(logn)
   # Space Complexity: O(1)
   def add(key, value = key)
-    if @store.empty?
-      @store << HeapNode.new(key, value)
-    else
-      new_i = @store.length
-      @store[new_i] = HeapNode.new(key, value)
-      heap_up(new_i)
-    end
+    new_i = @store.length
+    @store[new_i] = HeapNode.new(key, value)
+    heap_up(new_i)
     return key
   end
 
@@ -33,13 +29,11 @@ class MinHeap
   # Time Complexity: O(logn)
   # Space Complexity: O(1)
   def remove()
-    min = @store.min_by {|node| node.key}
-    index = @store.find_index {|node| node.key == min.key}
-    value = @store[index].value
+    value = @store[0].value
 
-    swap(index, -1)
+    swap(0, -1)
     @store.delete_at(-1)
-    heap_down(index)
+    heap_down(0)
     return value
   end
 
@@ -73,7 +67,7 @@ class MinHeap
   # Time complexity: O(logn)
   # Space complexity: O(0)
   def heap_up(index)
-    while @store[index].key < @store[(index - 1)/2].key
+    while index > 0 && @store[index].key < @store[(index - 1)/2].key
       swap(index, (index - 1)/2)
       index = (index - 1)/2
       return if index == 0
@@ -87,6 +81,8 @@ class MinHeap
     if @store[index * 2 + 1] != nil
       while @store[index].key > @store[index * 2 + 1].key
         swap(index, index * 2 + 1)
+        swap(index, index * 2 + 2) if @store[index * 2 + 2] != nil && @store[index].key > @store[index * 2 + 2].key
+        swap(index * 2 + 1, index * 2 + 2) if @store[index * 2 + 2] != nil && @store[index * 2 + 1].key > @store[index * 2 + 2].key
         index = index * 2 + 1
         return if @store[index * 2 + 1].nil?
       end
