@@ -57,7 +57,7 @@ def heapsort_in_place(list)
 end
 
 
-def build_min_heap(list)
+def build_max_heap(list)
 	# Range of internal nodes is 0 to (n/2 - 1) and range of leaves is (n/2) to (n - 1)
 	i = list.length / 2 - 1
 
@@ -70,7 +70,7 @@ def build_min_heap(list)
 	return list
 end
 
-
+# Compare current node to left and right child nodes, and swap to keep max heap structure
 def max_heapify(list, size, root)
 	root_larger_than_children = false
 
