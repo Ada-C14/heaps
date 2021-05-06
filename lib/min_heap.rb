@@ -17,7 +17,14 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    # raise NotImplementedError, "Method not implemented yet..."
+    @store << HeapNode.new(key, value)
+    
+      
+    if @store.length > 1
+      heap_sort(@store)
+    end
+
   end
 
   # This method removes and returns an element from the heap
