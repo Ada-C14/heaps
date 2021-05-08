@@ -83,25 +83,19 @@ class MinHeap
     left_child = (index * 2) + 1
     right_child = (index * 2) + 2
 
-    # check for at least left
-    if @store[left_child] && !@store[right_child]
-      if @store[index].key > @store[left_child].key
-        swap(index, left_child)
-      end
-    end
-    
-    # checking for both
-    return unless @store[right_child] && @store[left_child]
-
-    if @store[index].key > @store[left_child].key || @store[index].key > @store[right_child].key
-      smallest = @store[right_child].key < @store[left_child].key ? right_child : left_child
-      swap(index, smallest)
-    else
+    # get child index
+    if @store[left_child] && @store[right_child]
+      child_index = @store[left_child].key < @store[right_child].key ? left_child : right_child
+    elsif @store[left_child]    # no case where just right and no left
+      child_index = left
+    else                        # both are null so return
       return
     end
 
-    return heap_down(smallest)
-
+    if @store[index].key > @store[child_index].key
+      swap(index, child_index)
+      return heap_down(child_index)
+    end
   end
 
   # If you want a swap method... you're welcome
