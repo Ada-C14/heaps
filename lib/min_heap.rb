@@ -46,7 +46,7 @@ class MinHeap
     return "[]" if @store.empty?
 
     output = "["
-    (@store.length - 1).times do |index|
+    (last_index).times do |index|
       output += @store[index].value + ", "
     end
 
