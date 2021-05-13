@@ -19,11 +19,6 @@ class MinHeap
   def add(key, value = key)
     @store << HeapNode.new(key, value)
     
-    # @store.each do |node|
-    #   puts node.key
-    # end
-
-    print @store[0].key
     if @store.length > 1
       heap_up(@store.length - 1)
     end
@@ -35,7 +30,38 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    @store.each do |node|
+      puts "#{node.key} -- #{node.value}"
+    end
+
+    swap(0, -1)
+    puts "***SWAPPED***"
+    @store.each do |node|
+      puts "#{node.key} -- #{node.value}"
+    end
+    
+    
+
+    popped = @store.pop 
+
+    puts "popped -> #{popped.key} -- #{popped.value}"
+
+    puts "after pop list"
+    @store.each do |node|
+      puts "#{node.key} -- #{node.value}"
+    end
+    heap_down(0)
+
+    puts "after heap down"
+    @store.each do |node|
+      puts "#{node.key} -- #{node.value}"
+    end
+
+    puts "BREAK BETWEEN FUNCTION CALLS"
+    return popped.value
+
+
+
   end
 
 
@@ -80,16 +106,29 @@ class MinHeap
     
   end
 
-
-
   # This helper method takes an index and 
   #  moves it up the heap if it's smaller
   #  than it's parent node.
+  # left_child = i * 2 + 1 
+  # right_child = i * 2 + 2
   def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+    return if @store[index].nil?
+
+    if !@store[index * 2 + 1].nil? && @store[index].key > @store[index * 2 + 1].key
+      swap(index, (index * 2 + 1))
+    end
+
+    if !@store[index * 2 + 2].nil? && @store[index].key > @store[index * 2 + 2].key
+      swap(index, (index * 2 + 2))
+    end
+
+    heap_down(index * 2 + 1)
+    heap_down(index * 2 + 2)
+
   end
 
   # If you want a swap method... you're welcome
+  #THANK YOUUUUUU
   def swap(index_1, index_2)
     temp = @store[index_1]
     @store[index_1] = @store[index_2]
