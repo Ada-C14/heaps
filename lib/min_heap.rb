@@ -27,41 +27,13 @@ class MinHeap
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(n+1)
+  # Space Complexity: O(1)
   def remove()
-    # @store.each do |node|
-    #   puts "#{node.key} -- #{node.value}"
-    # end
-
     swap(0, -1)
-    # puts "***SWAPPED***"
-    # @store.each do |node|
-    #   puts "#{node.key} -- #{node.value}"
-    # end
-    
-    
-
     popped = @store.pop 
-
-    # puts "popped -> #{popped.key} -- #{popped.value}"
-
-    # puts "after pop list"
-    # @store.each do |node|
-    #   puts "#{node.key} -- #{node.value}"
-    # end
     heap_down(0)
-
-    # puts "after heap down"
-    # @store.each do |node|
-    #   puts "#{node.key} -- #{node.value}"
-    # end
-
-    # puts "BREAK BETWEEN FUNCTION CALLS"
     return popped.value
-
-
-
   end
 
 
@@ -80,8 +52,8 @@ class MinHeap
   end
 
   # This method returns true if the heap is empty
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(1)
+  # Space complexity: O(1)
   def empty?
     
     if @store.nil? || @store.length == 0
