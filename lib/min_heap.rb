@@ -30,34 +30,34 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    @store.each do |node|
-      puts "#{node.key} -- #{node.value}"
-    end
+    # @store.each do |node|
+    #   puts "#{node.key} -- #{node.value}"
+    # end
 
     swap(0, -1)
-    puts "***SWAPPED***"
-    @store.each do |node|
-      puts "#{node.key} -- #{node.value}"
-    end
+    # puts "***SWAPPED***"
+    # @store.each do |node|
+    #   puts "#{node.key} -- #{node.value}"
+    # end
     
     
 
     popped = @store.pop 
 
-    puts "popped -> #{popped.key} -- #{popped.value}"
+    # puts "popped -> #{popped.key} -- #{popped.value}"
 
-    puts "after pop list"
-    @store.each do |node|
-      puts "#{node.key} -- #{node.value}"
-    end
+    # puts "after pop list"
+    # @store.each do |node|
+    #   puts "#{node.key} -- #{node.value}"
+    # end
     heap_down(0)
 
-    puts "after heap down"
-    @store.each do |node|
-      puts "#{node.key} -- #{node.value}"
-    end
+    # puts "after heap down"
+    # @store.each do |node|
+    #   puts "#{node.key} -- #{node.value}"
+    # end
 
-    puts "BREAK BETWEEN FUNCTION CALLS"
+    # puts "BREAK BETWEEN FUNCTION CALLS"
     return popped.value
 
 
@@ -83,7 +83,13 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    
+    if @store.nil? || @store.length == 0
+      return true
+    else 
+      return false
+    end
+
   end
 
   private
