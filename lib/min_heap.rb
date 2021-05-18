@@ -86,8 +86,8 @@ class MinHeap
       swap(left_child_index,index)
       heap_down(left_child_index)
     elsif @store[index].key > right_child_index
-      swap(left_child_index,index)
-      heap_down(left_child_index)
+      swap(right_child_index,index)
+      heap_down(right_child_index)
     else
       return @store
     end
