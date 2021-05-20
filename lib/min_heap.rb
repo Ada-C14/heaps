@@ -14,18 +14,25 @@ class MinHeap
   end
 
   # This method adds a HeapNode instance to the heap
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(logn)
+  # Space Complexity: O(logn)
   def add(key, value = key)
-    raise NotImplementedError, "Method not implemented yet..."
+    @store << HeapNode.new(key, value)
+
+    heap_up(@store.length - 1)
   end
 
   # This method removes and returns an element from the heap
   #   maintaining the heap structure
-  # Time Complexity: ?
-  # Space Complexity: ?
+  # Time Complexity: O(logn)
+  # Space Complexity: O(logn)
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    return nil if @store.empty? 
+    swap(0, @store.length - 1)
+    result = @store.pop.value
+    
+    heap_down(0) unless @store.empty?
+    return result 
   end
 
 
@@ -44,10 +51,10 @@ class MinHeap
   end
 
   # This method returns true if the heap is empty
-  # Time complexity: ?
-  # Space complexity: ?
+  # Time complexity: O(1)
+  # Space complexity: O(1)
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return @store.empty?
   end
 
   private
@@ -55,17 +62,35 @@ class MinHeap
   # This helper method takes an index and
   #  moves it up the heap, if it is less than it's parent node.
   #  It could be **very** helpful for the add method.
-  # Time complexity: ?
-  # Space complexity: ?
-  def heap_up(index)
-    
+  # Time complexity: O(logn)
+  # Space complexity: O(logn)
+  def heap_up(idx)
+    parent_idx = (idx - 1) / 2
+    return if idx <= 0 || @store[parent_idx].key <= @store[idx].key
+    swap(parent_idx, idx)
+    heap_up(parent_idx)
   end
 
   # This helper method takes an index and 
   #  moves it up the heap if it's smaller
   #  than it's parent node.
-  def heap_down(index)
-    raise NotImplementedError, "Method not implemented yet..."
+  # Time complexity: O(logn)
+  # Space complexity: O(logn)
+  def heap_down(idx)
+    
+    left_idx = (idx * 2) + 1
+    right_idx = (idx * 2) + 2
+    smaller_idx = idx 
+
+    smaller_idx = left_idx if @store[left_idx] && @store[left_idx].key < @store[smaller_idx].key
+      
+    smaller_idx = right_idx if @store[right_idx] && @store[right_idx].key < @store[smaller_idx].key 
+
+    if (smaller_idx != idx)
+      swap(idx, smaller_idx)
+      heap_down(smaller_idx)
+    end
+    
   end
 
   # If you want a swap method... you're welcome
