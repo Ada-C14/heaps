@@ -38,7 +38,7 @@ def heapsort_in_place(list)
 	return [] if list.empty?
 
 	# Build heap (rearrange array)
-	build_min_heap(list)
+	build_max_heap(list)
 
 	unsorted_last_index = list.length - 1
 
