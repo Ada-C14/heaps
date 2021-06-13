@@ -26,7 +26,13 @@ class MinHeap
   # Time Complexity: ?
   # Space Complexity: ?
   def remove()
-    raise NotImplementedError, "Method not implemented yet..."
+    return nil if @store.empty?
+
+    swap(0, @store.length - 1)
+    removed = @store.pop
+
+    heap_down(0) if !@store.empty?
+    return removed.value
   end
 
 
@@ -48,7 +54,7 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def empty?
-    raise NotImplementedError, "Method not implemented yet..."
+    return @store.length == 0
   end
 
   private
@@ -59,7 +65,12 @@ class MinHeap
   # Time complexity: ?
   # Space complexity: ?
   def heap_up(index)
-    
+    return nil if index == 0
+    parent = (index -1 ) / 2
+    if @store[index].key < @store[parent].key
+      swap(index, parent)
+      heap_up(parent)
+    end
   end
 
   # This helper method takes an index and 
