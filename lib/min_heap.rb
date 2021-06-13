@@ -28,10 +28,12 @@ class MinHeap
   def remove()
     return nil if @store.empty?
 
+    
+    removed = @store[0]
     swap(0, @store.length - 1)
-    removed = @store.pop
+    @store = @store[0...-1]
 
-    heap_down(0) if !@store.empty?
+    heap_down(0)
     return removed.value
   end
 
