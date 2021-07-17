@@ -26,7 +26,7 @@ The methods you will need to write are:
 
 ## HeapSort
 
-The last method to write is `heapsort(list)` which takes an array and uses a `Heap` instance to sort the array.  We have discussed this method before.  It should look somewhat like insertion sort.  
+The last method to write is `(list)` which takes an array and uses a `Heap` instance to sort the array.  We have discussed this method before.  It should look somewhat like insertion sort.  
 
 Make certain you also document the expected runtime of each method.  
 
